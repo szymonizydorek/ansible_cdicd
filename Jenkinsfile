@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('List Files') {
             steps {
-                sh 'ls -al'
+                sh 'ls -alh'
             }
         }
     }
