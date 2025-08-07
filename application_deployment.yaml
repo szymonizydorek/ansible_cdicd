@@ -1,0 +1,29 @@
+---
+- name: Deploy Application with Nginx 
+  hosts: web01
+  become: true
+  tasks:
+    - name: Install NGINX server
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+      notify: Restart NGINX
+
+    - name: Start and Enable NGINX
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Deploy Static Website 
+      copy:
+        src: files/index.html
+        dest: /var/www/html
+      notify: Restart NGINX
+
+  handlers:
+    - name: Restart NGINX
+      service:
+        name: nginx
+        state: restarted
