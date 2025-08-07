@@ -7,6 +7,14 @@ pipeline {
                 sh 'ls -alh'
             }
         }
+
+        stage('Execute shell') {
+            steps {
+                sh '''
+                    hostname
+                '''
+            }
+        }
     }
 }
 
