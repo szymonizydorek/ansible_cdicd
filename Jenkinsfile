@@ -11,7 +11,7 @@ pipeline {
         stage('Execute shell') {
             steps {
                 sh '''
-                    hostname
+                    whoami
                 '''
             }
         }
