@@ -1,6 +1,6 @@
 ---
-- name: Deploy Application with Nginx 
-  hosts: web01
+- name: Deploy Application with Nginx
+  hosts: target2_ubuntu
   become: true
   tasks:
     - name: Install NGINX server
@@ -16,11 +16,23 @@
         state: started
         enabled: yes
 
-    - name: Deploy Static Website 
+    - name: Deploy Static Website
       copy:
         src: files/index.html
         dest: /var/www/html
       notify: Restart NGINX
+
+    - name: Get the public IP of target
+      shell: curl ifconfig.me
+      register: public_ip
+
+    - name: Curl the service
+      shell: curl -s -o /dev/null -w "%{http_code}" http://{{ public_ip }}
+      register: server_code
+
+    - name: Debug the service status
+      debug:
+        msg: "The service status is: {{ server_code.stdout }}"
 
   handlers:
     - name: Restart NGINX
