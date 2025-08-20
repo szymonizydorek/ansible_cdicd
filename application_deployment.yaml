@@ -27,7 +27,7 @@
       register: public_ip
 
     - name: Curl the service
-      shell: curl -s -o /dev/null -w "%{http_code}" http://{{ public_ip }}
+      shell: curl -s -o /dev/null -w "%{http_code}" http://{{ public_ip.stdout }}
       register: server_code
 
     - name: Debug the service status
