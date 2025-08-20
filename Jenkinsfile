@@ -19,7 +19,7 @@ pipeline {
         stage('Execute Ansible Playbook') {
             steps {
                ansiblePlaybook(
-                   credentialsId: 'ansible_ssh_key',
+                   credentialsId: 'lab_ansible_jenkins',
                    disableHostKeyChecking: true,
                    installation: 'Ansible',
                     inventory: 'inventory',
